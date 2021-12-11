@@ -6,6 +6,7 @@ const Container = styled.div`
   padding: 8px;
   border: 1px solid lightgrey;
   margin-bottom: 10px;
+  background-color: white;
 `;
 
 const Task = ({ task, index }) => {
