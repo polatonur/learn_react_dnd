@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import initialData from "./tasks";
+import Column from "./Column";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
+  const [state, setState] = useState(initialData);
+  const { tasks, columns } = state;
+
+  const column = columns["column-1"];
+  const taskList = column.taskIds.map((taskId) => tasks[taskId]);
+  const onDragEnd = () => {};
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Column key={column.id} tasks={taskList} column={column} />
+      </DragDropContext>
     </div>
   );
 }
