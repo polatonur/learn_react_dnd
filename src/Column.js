@@ -13,6 +13,7 @@ const Title = styled.h3`
 `;
 const TaksList = styled.div`
   padding: 8px;
+  background-color: ${(props) => (props.isDraggingOver ? "skyblue" : "white")};
 `;
 
 const Column = ({ tasks, column }) => {
@@ -20,8 +21,12 @@ const Column = ({ tasks, column }) => {
     <Container>
       <Title>{column.title}</Title>
       <Droppable droppableId={column.id}>
-        {(provided) => (
-          <TaksList ref={provided.innerRef} {...provided.droppableProps}>
+        {(provided, snapshot) => (
+          <TaksList
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
             {tasks.map((item, index) => {
               return <Task key={item.id} task={item} index={index} />;
             })}
